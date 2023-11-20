@@ -3,7 +3,7 @@ const Tour = require("../models/Tour.model");
 module.exports.toursController = {
   getTours: async (req, res) => {
     try {
-      const getTours = await Tour.find();
+      const getTours = await Tour.find().populate(["regionName", "categoryName"]);
       res.json(getTours);
     } catch (error) {
       res.json({ error: error.message });
@@ -29,7 +29,7 @@ module.exports.toursController = {
   },
   getTourById: async (req, res) => {
     try {
-      const getOneTour = Tour.findById(req.params.id);
+      const getOneTour = Tour.findById(req.params.id).populate("regionName", "categoryName");
       res.json(getOneTour);
     } catch (error) {
       res.json({ error: error.message });
