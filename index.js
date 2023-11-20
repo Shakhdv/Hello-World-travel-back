@@ -11,6 +11,7 @@ app.use(express.json());
 app.use("/images", express.static(path.resolve(__dirname, "images")));
 app.use(require("./routes/user.route"));
 app.use(require("./routes/excursion.route"));
+app.use(require('./routes/comments.route'))
 
 mongoose.connect(process.env.MONGO_SERVER);
 
