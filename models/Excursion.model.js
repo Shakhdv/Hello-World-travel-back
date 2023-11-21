@@ -8,6 +8,7 @@ const excursionSchema = mongoose.Schema({
         type: String,
     },
     rating: Number,
+    moreDescr: String,
 })
 
 const Excursion = mongoose.model("excursion", excursionSchema)

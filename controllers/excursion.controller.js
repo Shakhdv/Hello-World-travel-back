@@ -11,13 +11,14 @@ module.exports.excursionController = {
   },
   addExcursion: async (req, res) => {
     try {
-      const { name, descr, price, rating } = req.body;
+      const { name, descr, price, rating, moreDescr } = req.body;
       const newExcursion = await Excursion.create({
         name: name,
         descr: descr,
         price: price,
         image: req.file.path,
         rating: rating,
+        moreDescr: moreDescr
       });
       res.json(newExcursion)
 
