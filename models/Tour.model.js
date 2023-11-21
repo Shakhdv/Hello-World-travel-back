@@ -14,6 +14,14 @@ const tourSchema = mongoose.Schema({
     ref: "Category",
   },
   rating: Number,
+  firstDay: String,
+  secondDay: String,
+  thirdDay: String,
+  firstDayDescr: String,
+  secondDayDescr: String,
+  thirdDayDescr: String,
+  transport: String,
+  length: Number
 });
 
 const Tour = mongoose.model("Tour", tourSchema);
