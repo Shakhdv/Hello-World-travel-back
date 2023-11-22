@@ -28,7 +28,7 @@ module.exports.toursController = {
         length,
         firstDayDescr,
         secondDayDescr,
-        thirdDayDescr
+        thirdDayDescr,
       } = req.body;
       const newTour = await Tour.create({
         name,
@@ -45,7 +45,10 @@ module.exports.toursController = {
         length,
         firstDayDescr,
         secondDayDescr,
-        thirdDayDescr
+        thirdDayDescr,
+        firstDayImg: req.file.path,
+        secondDayImg: req.file.path,
+        thirdDayImg: req.file.path,
       });
       res.json(newTour);
     } catch (error) {
