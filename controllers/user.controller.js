@@ -26,6 +26,7 @@ module.exports.usersController = {
     const user = await User.create({
       login: login,
       password: hash,
+      avatar: req.file.path
     });
 
     res.json(user);
