@@ -11,6 +11,6 @@ const excursionSchema = mongoose.Schema({
     moreDescr: String,
 })
 
-const Excursion = mongoose.model("excursion", excursionSchema)
+const Excursion = mongoose.model("Excursion", excursionSchema)
 
 module.exports = Excursion 
