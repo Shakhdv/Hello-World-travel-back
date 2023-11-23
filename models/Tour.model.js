@@ -21,7 +21,11 @@ const tourSchema = mongoose.Schema({
   secondDayDescr: String,
   thirdDayDescr: String,
   transport: String,
-  length: Number
+  length: Number,
+  firstDayImage: String,
+  secondDayImage: String,
+  thirdDayImage: String,
+  video: String,
 });
 
 const Tour = mongoose.model("Tour", tourSchema);
