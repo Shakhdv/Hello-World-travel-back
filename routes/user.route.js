@@ -2,6 +2,7 @@ const { usersController } = require('../controllers/user.controller')
 const { Router } = require('express')
 const authMiddleware = require('../models/middlewares/auth.middleware')
 const router = Router()
+//
 
 router.get('/users', usersController.getAllUsers)
 router.get('/user', authMiddleware, usersController.getOneUser)
