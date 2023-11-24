@@ -6,9 +6,9 @@ const commentSchema = mongoose.Schema({
     type: mongoose.SchemaTypes.ObjectId,
     ref: "User",
   },
-  tourId: {
+  excursionId: {
     type: mongoose.SchemaTypes.ObjectId,
-    ref: "Tour",
+    ref: "Excursion",
   },
 });
 
