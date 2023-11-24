@@ -15,6 +15,7 @@ app.use(require("./routes/tours.route"))
 app.use(require("./routes/categories.route"))
 app.use(require("./routes/regions.route"))
 app.use(require('./routes/comments.route'))
+app.use(require('./routes/guide.route'))
 
 mongoose.connect(process.env.MONGO_SERVER);
 
