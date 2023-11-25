@@ -8,6 +8,31 @@ const userSchema = mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  tours: [
+    {
+      confirmed: {
+        type: Boolean,
+        default: false,
+      },
+      date: [String, String],
+      tour: {
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: "Tour",
+      },
+    },
+  ],
+  excursions: [
+    {
+      confirmed: {
+        type: Boolean,
+        default: false,
+      },
+      excursion: {
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: "Excursion",
+      },
+    },
+  ],
 });
 
 const User = mongoose.model("User", userSchema);

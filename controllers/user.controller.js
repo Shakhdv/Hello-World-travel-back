@@ -1,22 +1,26 @@
 const User = require("../models/User.model");
-const bcrypt = require("bcrypt")
+const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const { default: mongoose } = require("mongoose");
 
 module.exports.usersController = {
   getOneUser: async (req, res) => {
     try {
-      const users = await User.findById(req.user.id);
+      const users = await User.findById(req.user.id).populate([
+        "tours",
+        "excursions",
+      ]);
       res.json(users);
     } catch (error) {
-      res.json({error: error.message});
+      res.json({ error: error.message });
     }
   },
   getAllUsers: async (req, res) => {
     try {
-      const users = await User.find();
+      const users = await User.find().populate(["tours", "excursions"]);
       res.json(users);
     } catch (error) {
-      res.json({error: error.message});
+      res.json({ error: error.message });
     }
   },
   addUsers: async (req, res) => {
@@ -27,7 +31,21 @@ module.exports.usersController = {
       login: login,
       password: hash,
       avatar: req.file.path,
-      admin
+      admin,
+    });
+
+    res.json(user);
+  },
+  addTours: async (req, res) => {
+    const { tour, date, id } = req.body;
+
+    const user = await User.findByIdAndUpdate(id, {
+      $push: {
+        tours: {
+          tour,
+          date,
+        },
+      },
     });
 
     res.json(user);
@@ -36,12 +54,12 @@ module.exports.usersController = {
     const { login, password } = req.body;
     const candidate = await User.findOne({ login: login });
     if (!candidate) {
-      return res.status(401).json({error: "неверный логин"});
+      return res.status(401).json({ error: "неверный логин" });
     }
 
     const valid = await bcrypt.compare(password, candidate.password);
     if (!valid) {
-      return res.status(401).json({error: "неверный пароль"});
+      return res.status(401).json({ error: "неверный пароль" });
     }
     const payload = {
       id: candidate._id,
