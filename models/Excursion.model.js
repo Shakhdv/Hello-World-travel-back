@@ -4,9 +4,7 @@ const excursionSchema = mongoose.Schema({
   name: String,
   descr: String,
   price: Number,
-  image: {
-    type: String,
-  },
+  image: String,
   rating: Number,
   moreDescr: String,
 });
