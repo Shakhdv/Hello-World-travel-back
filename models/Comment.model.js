@@ -6,7 +6,7 @@ const commentSchema = mongoose.Schema({
     type: mongoose.SchemaTypes.ObjectId,
     ref: "User",
   },
-  excursionId: {
+  eventId: {
     type: mongoose.SchemaTypes.ObjectId,
     ref: "Excursion",
   },
