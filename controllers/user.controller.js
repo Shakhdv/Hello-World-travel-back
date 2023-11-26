@@ -7,7 +7,7 @@ module.exports.usersController = {
   getOneUser: async (req, res) => {
     try {
       const users = await User.findById(req.user.id).populate([
-        "tours",
+        "tours.tour",
         "excursions",
       ]);
       res.json(users);
@@ -17,7 +17,7 @@ module.exports.usersController = {
   },
   getAllUsers: async (req, res) => {
     try {
-      const users = await User.find().populate(["tours", "excursions"]);
+      const users = await User.find().populate(["tours.tour", "excursions"]);
       res.json(users);
     } catch (error) {
       res.json({ error: error.message });
@@ -69,4 +69,62 @@ module.exports.usersController = {
     });
     res.json({ token, id: payload.id });
   },
+  // confirmTour: async (req, res) => {
+    // try {
+  //     const { id } = req.params;
+  //     const { broneId } = req.body;
+  //     const user = await User.findById(id);
+  //     await user.tours.map(async (tour) => {
+  //       // console.log(tour);
+  //       if (tour._id.toString() === broneId) {
+  //         console.log(tour);
+
+  //         await User.findByIdAndUpdate(id, {
+  //           tours: [...User.user.tours, { confirmed: !req.body.confirmed }],
+  //         });
+  //         // tour.confirmed = !req.body.confirmed;
+  //         return await res.json(tour.confirmed);
+  //       }
+  //     });
+  //     return res.status(401).json("ошибка. Нет доступа");
+  //   } catch (error) {
+  //     return res.status(401).json({ error: "Ошибка: " + error.message });
+  //   }
+  // },
+  confirmTour: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { broneId, date, tourId } = req.body;
+      const user = await User.findByIdAndUpdate(id, {
+        tours: { _id: broneId, confirmed: true, date: date, tour: tourId },
+      });
+      return await res.json(user.tours);
+    } catch (error) {
+      return res.status(401).json({ error: "Ошибка: " + error.message });
+    }
+  },
+  // confirmTour: async (req, res) => {
+  //   try {
+  //     const { id } = req.params;
+  //     const { broneId, date, tourId } = req.body;
+  //     const user = await User.findById(id);
+  //     // console.log(user.tours);
+  //     const tours = user.tours;
+  //     await User.findByIdAndUpdate(id, { confirmed: true });
+  //     // user.tours.map((tour) => {
+  //     //   if (tour._id === broneId) {
+  //     //     console.log(tour);
+  //     //      tour.updateOne(
+  //     //       { _id: broneId, confirmed: false, date: date, tour: tourId },
+  //     //       { $set: { confirmed: true } }
+  //     //     );
+  //     //   }
+  //     // });
+
+  //     // console.log(user.tours);
+  //     return await res.json(tours);
+  //   } catch (error) {
+  //     return res.status(401).json({ error: "Ошибка: " + error.message });
+  //   }
+  // },
 };

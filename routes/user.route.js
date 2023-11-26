@@ -14,6 +14,8 @@ router.post(
 );
 router.post("/login", usersController.login);
 router.patch("/user", authMiddleware, usersController.addTours);
+router.patch("/users/:id", usersController.confirmTour);
+
 
 
 module.exports = router;
