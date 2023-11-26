@@ -70,7 +70,7 @@ module.exports.usersController = {
     res.json({ token, id: payload.id });
   },
   // confirmTour: async (req, res) => {
-  //   try {
+    // try {
   //     const { id } = req.params;
   //     const { broneId } = req.body;
   //     const user = await User.findById(id);
