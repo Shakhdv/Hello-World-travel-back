@@ -7,7 +7,7 @@ module.exports.usersController = {
   getOneUser: async (req, res) => {
     try {
       const users = await User.findById(req.user.id).populate([
-        "tours",
+        "tours.tour",
         "excursions",
       ]);
       res.json(users);
@@ -17,7 +17,7 @@ module.exports.usersController = {
   },
   getAllUsers: async (req, res) => {
     try {
-      const users = await User.find().populate(["tours", "excursions"]);
+      const users = await User.find().populate(["tours.tour", "excursions"]);
       res.json(users);
     } catch (error) {
       res.json({ error: error.message });
