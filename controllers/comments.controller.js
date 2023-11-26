@@ -7,12 +7,12 @@ module.exports.commentController = {
         res.json(comments)
     },
     addComments: async (req, res)=>{
-        const { text , userId , newsId } = req.body
+        const { text , userId , eventId } = req.body
         try {
             const newComment = await Comment.create({
                 text,
                 userId,
-                newsId
+                eventId
             })
             const comm = await Comment.findById(newComment._id).populate("userId")
              return res.json(comm)
