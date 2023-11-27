@@ -95,10 +95,21 @@ module.exports.usersController = {
     try {
       const { id } = req.params;
       const { broneId, date, tourId } = req.body;
-      const user = await User.findByIdAndUpdate(id, {
-        tours: { _id: broneId, confirmed: true, date: date, tour: tourId },
+      const user = await User.findById(id)
+
+      const tours = await user.tours.map(item => {
+        if(item._id.toString() === broneId) {
+          console.log(item);
+          item.confirmed = true
+        }
+        return item
       });
-      return await res.json(user.tours);
+
+      await user.updateOne({tours: tours})
+      await user.save()
+
+      const updatedUser = await User.findById(id)
+      return await res.json(updatedUser);
     } catch (error) {
       return res.status(401).json({ error: "Ошибка: " + error.message });
     }
